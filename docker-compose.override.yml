@@ -1,0 +1,8 @@
+services:
+  mysql:
+    volumes:
+      - JapanEquestrianEvents:/var/lib/mysql
+
+volumes:
+  JapanEquestrianEvents:
+    external: true
