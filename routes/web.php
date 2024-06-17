@@ -23,7 +23,6 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
 Route::match(['get', 'post'], '/db-test', function (Request $request) {
     try {
         // Attempt to connect to the database
@@ -92,8 +91,11 @@ Route::match(['get', 'post'], '/db-test', function (Request $request) {
     }
 });
 
+use App\Http\Controllers\DashboardController;
 
-
+Route::middleware(['auth'])->group(function () {
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});
 
 
 require __DIR__.'/auth.php';

@@ -11,6 +11,16 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                 </div>
+                <div class="container">
+                    <h1>Dashboard</h1>
+                    @if ($user->role === 'organizer')
+                        <p>You are an organizer</p>
+                    @elseif ($user->role === 'member')
+                        <p>You are a member</p>
+                    @else
+                        <p>You have an unknown role</p>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
