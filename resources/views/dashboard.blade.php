@@ -12,11 +12,14 @@
                     {{ __("You're logged in!") }}
                 </div>
                 <div class="container">
-                    <h1>Dashboard</h1>
                     @if ($user->role === 'organizer')
-                        <p>You are an organizer</p>
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            {{ __("Organizer") }}
+                        </div>
                     @elseif ($user->role === 'member')
-                        <p>You are a member</p>
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        {{ __("Member") }}
+                    </div>
                     @else
                         <p>You have an unknown role</p>
                     @endif
@@ -24,4 +27,5 @@
             </div>
         </div>
     </div>
+    
 </x-app-layout>
