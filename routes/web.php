@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use PhpParser\JsonDecoder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\DashboardController;
 
 
 Route::get('/', function () {
@@ -91,7 +92,6 @@ Route::match(['get', 'post'], '/db-test', function (Request $request) {
     }
 });
 
-use App\Http\Controllers\DashboardController;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
