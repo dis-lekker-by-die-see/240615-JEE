@@ -29,6 +29,9 @@ Route::match(['get', 'post'], '/db-test', function (Request $request) {
         // Attempt to connect to the database
         DB::connection()->getPdo();
 
+        // Add this in a route or controller
+        \Log::info('DB Host:', ['host' => config('database.connections.mysql.host')]);
+
         // Fetch list of tables
         $tables = DB::select('SHOW TABLES');
         $tables = array_map('current', $tables); // Flatten array

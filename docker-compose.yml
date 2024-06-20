@@ -1,3 +1,4 @@
+
 services:
     laravel.test:
         build:
@@ -20,48 +21,10 @@ services:
         volumes:
             - '.:/var/www/html'
         networks:
-            - sail
-        depends_on:
-            - mysql
-    mysql:
-        image: mysql:latest
-        container_name: mysql 
-        ports:
-            - '${FORWARD_DB_PORT:-3306}:3306'
-        environment:
-            MYSQL_ROOT_PASSWORD: 'perdebasis'
-            MYSQL_DATABASE: '${DB_DATABASE}'
-            MYSQL_USER: '${DB_USERNAME}'
-            MYSQL_PASSWORD: '${DB_PASSWORD}'
-            MYSQL_ALLOW_EMPTY_PASSWORD: 1
-        volumes:
-            - 'JapanEquestrianEvents:/var/lib/mysql'
-        networks:
-            - sail
-        healthcheck:
-            test:
-                - CMD
-                - mysqladmin
-                - ping
-                - '-p${DB_PASSWORD}'
-            retries: 3
-            timeout: 5s
-
-    # nginx:
-    # image: nginx:latest
-    # ports:
-    #   - '8080:80'
-    # volumes:
-    #   - .:/var/www/html
-    #   - ./nginx/conf.d:/etc/nginx/conf.d
-    # depends_on:
-    #   - laravel.test
-    # networks:
-    #   - sail
-
+            - JEE-AWS-network
 networks:
-    sail:
-        driver: bridge
+    JEE-AWS-network:
+        external: true
 volumes:
     JapanEquestrianEvents:
-    
+        external: true
