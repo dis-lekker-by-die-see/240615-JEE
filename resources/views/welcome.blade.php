@@ -24,7 +24,7 @@
                     <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
                         <div class="flex lg:justify-center lg:col-start-2">
                           
-                            <x-application-logo class="block h-12 w-15" style="fill: #008000;" 
+                            <x-application-logo class="block h-12 w-15" style="fill: #00a000;" 
                             />
 
                             <!--
