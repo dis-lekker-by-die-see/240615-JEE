@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\DashboardController;
 
+use App\Http\Controllers\KamiDashboardController;
+use App\Http\Controllers\OrganizerDashboardController;
+use App\Http\Controllers\ClubDashboardController;
+use App\Http\Controllers\RiderDashboardController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,6 +21,10 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -95,9 +104,40 @@ Route::match(['get', 'post'], '/db-test', function (Request $request) {
     }
 });
 
+// Routes for authenticated and verified users
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        $role = auth()->user()->role;
+        switch ($role) {
+            case 'kami':
+                return redirect()->route('kami.dashboard');
+            case 'organizer':
+                return redirect()->route('organizer.dashboard');
+            case 'club':
+                return redirect()->route('club.dashboard');
+            case 'rider':
+                return redirect()->route('rider.dashboard');
+            default:
+                abort(403, 'Unauthorized action.');
+        }
+    })->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    // Role-specific routes
+    Route::middleware('role:kami')->group(function () {
+        Route::get('/kami/dashboard', [KamiDashboardController::class, 'index'])->name('kami.dashboard');
+    });
+
+    Route::middleware('role:organizer')->group(function () {
+        Route::get('/organizer/dashboard', [OrganizerDashboardController::class, 'index'])->name('organizer.dashboard');
+    });
+
+    Route::middleware('role:club')->group(function () {
+        Route::get('/club/dashboard', [ClubDashboardController::class, 'index'])->name('club.dashboard');
+    });
+
+    Route::middleware('role:rider')->group(function () {
+        Route::get('/rider/dashboard', [RiderDashboardController::class, 'index'])->name('rider.dashboard');
+    });
 });
 
 
