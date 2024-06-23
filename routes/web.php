@@ -30,7 +30,7 @@ Route::match(['get', 'post'], '/db-test', function (Request $request) {
         DB::connection()->getPdo();
 
         // Add this in a route or controller
-        \Log::info('DB Host:', ['host' => config('database.connections.mysql.host')]);
+        Log::info('DB Host:', ['host' => config('database.connections.mysql.host')]);
 
         // Fetch list of tables
         $tables = DB::select('SHOW TABLES');
