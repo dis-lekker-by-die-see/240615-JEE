@@ -14,19 +14,14 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'name' => 'User name - rider',
-            'email' => 'rider@p',
+            'name' => 'User name - rider', // add user name
+            'email' => 'rider@p',          
             'password' => Hash::make('rider'),
-            'role' => 'rider',
+            'role' => 'rider', // roles: organizer, club, rider
         ]);
 
-        // User::create([
-        //     'name' => 'Member User',
-        //     'email' => 'member@example.com',
-        //     'password' => Hash::make('password'),
-        //     'role' => 'member',
-        // ]);
     }
 }
 
+// ./vendor/bin/sail shell
 // php artisan db:seed --class=UserSeeder
