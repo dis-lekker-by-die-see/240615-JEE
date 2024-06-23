@@ -17,12 +17,31 @@
                     </x-nav-link>
                 </div>
 
+                @if ((Auth::user()->role === 'organizer') || (Auth::user()->role === 'member'))
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('temp- Schedule') }}
+                    </x-nav-link>
+                </div>
+                @else
+                    <!-- other navigation links -->
+                @endif
+            
+                @if ((Auth::user()->role === 'organizer'))
                 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Entries') }}
+                        {{ __('Competitions') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Events') }}
+                    </x-nav-link>
+                </div>
+                @else
+                    <!-- other navigation links -->
+                @endif
 
 
             </div>

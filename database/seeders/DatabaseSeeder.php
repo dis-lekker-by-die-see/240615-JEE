@@ -35,7 +35,10 @@ class DatabaseSeeder extends Seeder
             // CompetitionSportsTableSeeder::class,
             // FeesTableSeeder::class,
             // EventsTableSeeder::class,
+            // UserSeeder::class,
 
+
+            // php artisan db:seed
 
         ]);
     }
