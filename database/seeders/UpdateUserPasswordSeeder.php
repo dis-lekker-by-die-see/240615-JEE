@@ -13,15 +13,17 @@ class UpdateUserPasswordSeeder extends Seeder
 
     public function run(): void
     {
-        DB::table('users')->where('name', 'tony')->update([
-        //DB::table('users')->where('email', 'john@example.com')->update([    
-            //'name' => 'John Doe',
-            //'email' => 'john@example.com',
-            'password' => Hash::make('new_password'),
-            //'role' => 'organizer',
-            'updated_at' => now(),
+        DB::table('users')->where('name', 'User name - club')->update([
+            //DB::table('users')->where('email', 'john@example.com')->update([    
+                //'name' => 'John Doe',
+                //'email' => 'john@example.com',
+                'password' => Hash::make('club'),
+                //'role' => 'organizer',
+                'updated_at' => now(),
+
         ]);
     }
 }
 
+// ./vendor/bin/sail shell
 // php artisan db:seed --class=UpdateUserPasswordSeeder

@@ -12,10 +12,14 @@
                     {{ __("You're logged in!") }}
                 </div>
                 <div class="container">
-                    @if ($user->role === 'organizer')
+                    @if ($user->role === 'member')
                         <div class="p-6 text-gray-900 dark:text-gray-100">
                             {{ __("Organizer") }}
                         </div>
+                    @elseif ($user->role === 'member')
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        {{ __("Member") }}
+                    </div>
                     @elseif ($user->role === 'member')
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         {{ __("Member") }}

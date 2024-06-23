@@ -17,17 +17,21 @@
                     </x-nav-link>
                 </div>
 
-                @if ((Auth::user()->role === 'organizer') || (Auth::user()->role === 'member'))
+                <!-- Nav links based on user role ----------------------------------------------->
+                @if ((Auth::user()->role === 'member') 
+                || (Auth::user()->role === 'organizer')
+                || (Auth::user()->role === 'kami'))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('temp- Schedule') }}
                     </x-nav-link>
                 </div>
                 @else
-                    <!-- other navigation links -->
+                    
                 @endif
-            
-                @if ((Auth::user()->role === 'organizer'))
+                <!--------------------------------------->
+                @if ((Auth::user()->role === 'organizer')
+                || (Auth::user()->role === 'kami'))
                 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
@@ -40,9 +44,19 @@
                     </x-nav-link>
                 </div>
                 @else
-                    <!-- other navigation links -->
+                    
                 @endif
-
+                <!--------------------------------------->
+                @if ((Auth::user()->role === 'kami'))
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Query') }}
+                    </x-nav-link>
+                </div>
+                @else
+                    
+                @endif
+                <!------------------------------------------------------------------------------------>
 
             </div>
 
