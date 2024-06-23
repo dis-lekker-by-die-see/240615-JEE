@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>日本馬術競技大会</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -17,13 +17,14 @@
     </head>
     <body class="font-sans antialiased dark:bg-black dark:text-white/50">
         <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-            <img id="background" class="absolute -left-20 top-0 max-w-[877px]" src="https://laravel.com/assets/img/welcome/background.svg"/>
+            <img id="background" class="absolute -left-20 top-0 max-w-[877px]" src="data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%20877%20968%22%3E%3Cg%20clip-path%3D%22url%28%23a%29%22%3E%3Ccircle%20cx%3D%22391%22%20cy%3D%22391%22%20r%3D%22390.5%22%20stroke%3D%22%2300FF00%22%20transform%3D%22matrix%28-1%200%200%201%20416%20-56%29%22%20%2F%3E%3Ccircle%20cx%3D%22468%22%20cy%3D%22468%22%20r%3D%22467.5%22%20stroke%3D%22%2300FF00%22%20opacity%3D%22.3%22%20transform%3D%22matrix%28-1%200%200%201%20493%20-133%29%22%20%2F%3E%3Ccircle%20cx%3D%22558%22%20cy%3D%22558%22%20r%3D%22557.5%22%20stroke%3D%22%2300FF00%22%20opacity%3D%22.1%22%20transform%3D%22matrix%28-1%200%200%201%20583%20-223%29%22%20%2F%3E%3Cg%20filter%3D%22url%28%23b%29%22%3E%20%3Cellipse%20cx%3D%22583%22%20cy%3D%22229.5%22%20fill%3D%22%2300FF00%22%20rx%3D%22583%22%20ry%3D%22229.5%22%20transform%3D%22matrix%28-1%200%200%201%20621%20-9%29%22%20%2F%3E%3C%2Fg%3E%3Cg%20filter%3D%22url%28%23c%29%22%3E%3Cellipse%20cx%3D%22262%22%20cy%3D%22184.5%22%20fill%3D%22%23fff%22%20rx%3D%22262%22%20ry%3D%22184.5%22%20transform%3D%22matrix%28-1%200%200%201%2099%2042%29%22%20%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3Cdefs%3E%3Cfilter%20id%3D%22b%22%20width%3D%221614%22%20height%3D%22907%22%20x%3D%22-769%22%20y%3D%22-233%22%20color-interpolation-filters%3D%22sRGB%22%20filterUnits%3D%22userSpaceOnUse%22%3E%3CfeFlood%20flood-opacity%3D%220%22%20result%3D%22BackgroundImageFix%22%20%2F%3E%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22BackgroundImageFix%22%20result%3D%22shape%22%20%2F%3E%3CfeGaussianBlur%20result%3D%22effect1_foregroundBlur_3089_39042%22%20stdDeviation%3D%22112%22%20%2F%3E%3C%2Ffilter%3E%3Cfilter%20id%3D%22c%22%20width%3D%22972%22%20height%3D%22817%22%20x%3D%22-649%22%20y%3D%22-182%22%20color-interpolation-filters%3D%22sRGB%22%20filterUnits%3D%22userSpaceOnUse%22%3E%3CfeFlood%20flood-opacity%3D%220%22%20result%3D%22BackgroundImageFix%22%20%2F%3E%3CfeBlend%20in%3D%22SourceGraphic%22%20in2%3D%22BackgroundImageFix%22%20result%3D%22shape%22%20%2F%3E%3CfeGaussianBlur%20result%3D%22effect1_foregroundBlur_3089_39042%22%20stdDeviation%3D%22112%22%20%2F%3E%3C%2Ffilter%3E%3CclipPath%20id%3D%22a%22%3E%3Cpath%20fill%3D%22%23fff%22%20d%3D%22M877%200H0v968h877z%22%20%2F%3E%3C%2FclipPath%3E%3C%2Fdefs%3E%3C%2Fsvg%3E">
+
             <div class="relative min-h-screen flex flex-col items-center justify-center selection:bg-[#FF2D20] selection:text-white">
                 <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
                     <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
                         <div class="flex lg:justify-center lg:col-start-2">
                           
-                            <x-application-logo class="block h-12 w-15" style="fill: red;" 
+                            <x-application-logo class="block h-12 w-15" style="fill: #008000;" 
                             />
 
                             <!--
