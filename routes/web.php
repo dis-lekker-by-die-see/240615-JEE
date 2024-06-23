@@ -13,6 +13,8 @@ use App\Http\Controllers\OrganizerDashboardController;
 use App\Http\Controllers\ClubDashboardController;
 use App\Http\Controllers\RiderDashboardController;
 
+use App\Http\Controllers\QueryController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -122,23 +124,33 @@ Route::middleware(['auth', 'verified'])->group(function () {
         }
     })->name('dashboard');
 
-    // Role-specific routes
+    // kami.query //////////////////////////////////////////////////////////
     Route::middleware('role:kami')->group(function () {
         Route::get('/kami/dashboard', [KamiDashboardController::class, 'index'])->name('kami.dashboard');
     });
+    Route::get('/kami/query', [QueryController::class, 'index'])->name('query');
+    Route::post('/kami/query', [QueryController::class, 'executeQuery'])->name('query.execute');
 
+    // organizer.query //////////////////////////////////////////////////////////
     Route::middleware('role:organizer')->group(function () {
         Route::get('/organizer/dashboard', [OrganizerDashboardController::class, 'index'])->name('organizer.dashboard');
     });
 
+    // club.query //////////////////////////////////////////////////////////
     Route::middleware('role:club')->group(function () {
         Route::get('/club/dashboard', [ClubDashboardController::class, 'index'])->name('club.dashboard');
     });
 
+    // rider.query //////////////////////////////////////////////////////////
     Route::middleware('role:rider')->group(function () {
         Route::get('/rider/dashboard', [RiderDashboardController::class, 'index'])->name('rider.dashboard');
     });
 });
+
+
+
+
+
 
 
 require __DIR__.'/auth.php';
