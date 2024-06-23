@@ -9,23 +9,27 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
+                    {{ __("") }}
                 </div>
                 <div class="container">
-                    @if ($user->role === 'member')
+                    @if ($user->role === 'rider')
                         <div class="p-6 text-gray-900 dark:text-gray-100">
-                            {{ __("Organizer") }}
+                            {{ __("You are a RIDER") }}
                         </div>
-                    @elseif ($user->role === 'member')
+                    @elseif ($user->role === 'club')
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        {{ __("Member") }}
+                        {{ __("You are a CLUB admin") }}
                     </div>
-                    @elseif ($user->role === 'member')
+                    @elseif ($user->role === 'organizer')
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        {{ __("Member") }}
+                        {{ __("You are the event ORGANIZER") }}
+                    </div>
+                    @elseif ($user->role === 'kami')
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        {{ __("You are the GOD of this universe") }}
                     </div>
                     @else
-                        <p>You have an unknown role</p>
+                        <p>You are a black hole with no ROLE</p>
                     @endif
                 </div>
             </div>

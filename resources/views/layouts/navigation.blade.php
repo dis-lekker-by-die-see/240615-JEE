@@ -18,7 +18,20 @@
                 </div>
 
                 <!-- Nav links based on user role ----------------------------------------------->
-                @if ((Auth::user()->role === 'member') 
+                @if ((Auth::user()->role === 'rider')
+                || (Auth::user()->role === 'club') 
+                || (Auth::user()->role === 'organizer')
+                || (Auth::user()->role === 'kami'))
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('temp- Program') }}
+                    </x-nav-link>
+                </div>
+                @else
+                    
+                @endif
+                <!--------------------------------------->
+                @if ((Auth::user()->role === 'club') 
                 || (Auth::user()->role === 'organizer')
                 || (Auth::user()->role === 'kami'))
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
