@@ -4,7 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>日本馬術競技大会</title>
+        {{-- <title>日本馬術競技大会</title> --}}
+        <title>{{ config('app.name', '日本馬術競技大会') }}</title>
+
+        
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
