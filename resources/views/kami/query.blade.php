@@ -120,11 +120,13 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            table-layout: auto;
         }
         th, td {
             border: 1px solid #ccc;
             padding: 8px;
             text-align: left;
+            white-space: nowrap;
         }
         /* th {
             background-color: #f2f2f2;
@@ -154,6 +156,7 @@
             margin-top: 10px;
         }
     </style>
+
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
