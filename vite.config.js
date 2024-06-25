@@ -50,16 +50,16 @@ export default defineConfig({
             refresh: true,
         }),
     ],
-    server: {
-        watch: {
-            usePolling: true,
-            interval: 300,
-        },
-        host: '0.0.0.0',
-        port: 5173,
-        hmr: {
-            host: '13.208.182.103', // Replace with your EC2 public IP or domain
-            port: 5173,
-        },
-    },
+    // server: {
+    //     watch: {
+    //         usePolling: true,
+    //         interval: 300,
+    //     },
+    //     host: '0.0.0.0',
+    //     port: 5173,
+    //     hmr: {
+    //         host: '13.208.182.103', // Replace with your EC2 public IP or domain
+    //         port: 5173,
+    //     },
+    // },
 });
