@@ -5,9 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         {{-- <title>日本馬術競技大会</title> --}}
-        <title>{{ config('app.name', '日本馬術競技大会') }}</title>
+        {{-- <title>{{ config('app.name', '日本馬術競技大会') }}</title> --}}
 
-        
+        @section('title', 'Welcome to My Application')
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
