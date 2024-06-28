@@ -18,6 +18,7 @@ use App\Http\Controllers\QueryController;
 
 Route::get('/test-app-name', function () {
     return config('app.name');
+    return env('APP_NAME', 'Default from env function');
 });
 
 
