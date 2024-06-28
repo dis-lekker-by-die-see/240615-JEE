@@ -16,6 +16,11 @@ use App\Http\Controllers\RiderDashboardController;
 use App\Http\Controllers\QueryController;
 
 
+Route::get('/test-app-name', function () {
+    return config('app.name');
+});
+
+
 Route::get('/', function () {
     return view('welcome');
 });
