@@ -21,7 +21,6 @@ Route::get('/test-app-name', function () {
     return env('APP_NAME', 'Default from env function');
 });
 
-
 Route::get('/', function () {
     return view('welcome');
 });
