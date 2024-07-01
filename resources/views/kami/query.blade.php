@@ -191,7 +191,7 @@
                             @csrf
                             <div>
                                 <label for="raw_query">SQL Query:<br></label>
-                                <textarea class="raw_query" name="raw_query" id="raw_query" rows="4" placeholder="e.g., SELECT * FROM table_name">{{ $rawQuery }}</textarea>
+                                <textarea class="raw_query" name="raw_query" id="raw_query" text-color="black" rows="4" placeholder="e.g., SELECT * FROM table_name">{{ $rawQuery }}</textarea>
                                 <button class="raw-query-submit" type="submit" name="raw-query-submit">Run Query</button>
                             </div>
                         </form>
