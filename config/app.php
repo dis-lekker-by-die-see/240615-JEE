@@ -13,7 +13,6 @@ return [
     |
     */
 
-    // 'name' => env('APP_NAME', 'Laravel'),
     'name' => env('APP_NAME', '日本馬術競技大会'),
 
     /*
