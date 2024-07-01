@@ -175,7 +175,7 @@
                             @csrf
                             <div>
                                 <label for="table">View all columns and rows from TABLE:</label>
-                                <select name="table" id="table">
+                                <select name="table" id="table" class="bg-white dark:bg-gray-800 text-black dark:text-white border border-gray-300 dark:border-gray-500 rounded p-2">
                                     @foreach ($tables as $table)
                                         <option value="{{ $table }}" {{ $selectedTable == $table ? 'selected' : '' }}>
                                             {{ $table }}
@@ -191,7 +191,24 @@
                             @csrf
                             <div>
                                 <label for="raw_query">SQL Query:<br></label>
-                                <textarea class="raw_query" name="raw_query" id="raw_query" text-color="black" rows="4" placeholder="e.g., SELECT * FROM table_name">{{ $rawQuery }}</textarea>
+                                {{-- <textarea 
+                                    class="raw_query bg-white dark:bg-gray-800 text-black dark:text-white" 
+                                    class="raw_query bg-white dark:bg-gray-800 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 p-2" 
+                                    name="raw_query" 
+                                    id="raw_query"  
+                                    rows="4" 
+                                    placeholder="e.g., SELECT * FROM table_name">
+                                    {{ $rawQuery }}
+                                </textarea> --}}
+                                <textarea 
+                                    class="raw_query bg-white dark:bg-gray-800 text-black dark:text-white placeholder-gray-500 dark:placeholder-gray-400 p-2" 
+                                    name="raw_query" 
+                                    id="raw_query"  
+                                    rows="4" 
+                                    placeholder="e.g., SELECT * FROM table_name"
+                                    >{{ $rawQuery ? $rawQuery : '' }}</textarea>
+
+                                {{-- <textarea class="raw_query" name="raw_query" id="raw_query" text-color="black" rows="4" placeholder="e.g., SELECT * FROM table_name">{{ $rawQuery }}</textarea> --}}
                                 <button class="raw-query-submit" type="submit" name="raw-query-submit">Run Query</button>
                             </div>
                         </form>
