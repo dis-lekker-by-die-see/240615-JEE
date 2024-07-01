@@ -49,11 +49,64 @@
 //     }
 // }
 
+///////////////////// before user_role table
+
+// namespace App\Http\Controllers\Auth;
+
+// use App\Http\Controllers\Controller;
+// use App\Models\User;
+// use Illuminate\Auth\Events\Registered;
+// use Illuminate\Http\RedirectResponse;
+// use Illuminate\Http\Request;
+// use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Hash;
+// use Illuminate\Validation\Rules;
+// use Illuminate\View\View;
+
+// class RegisteredUserController extends Controller
+// {
+//     /**
+//      * Display the registration view.
+//      */
+//     public function create(): View
+//     {
+//         return view('auth.register');
+//     }
+
+//     /**
+//      * Handle an incoming registration request.
+//      *
+//      * @throws \Illuminate\Validation\ValidationException
+//      */
+//     public function store(Request $request): RedirectResponse
+//     {
+//         $request->validate([
+//             'name' => ['required', 'string', 'max:255'],
+//             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+//             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+//             'role' => ['required', 'in:club,rider'], // Add validation for role
+//         ]);
+
+//         $user = User::create([
+//             'name' => $request->name,
+//             'email' => $request->email,
+//             'password' => Hash::make($request->password),
+//             'role' => $request->role, // Save the role to the user
+//         ]);
+
+//         event(new Registered($user));
+
+//         Auth::login($user);
+
+//         return redirect(route('dashboard', absolute: false));
+//     }
+// }
 
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -64,39 +117,47 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
     public function create(): View
     {
-        return view('auth.register');
+        // Retrieve only the roles for "rider" and "club"
+        //$roles = \App\Models\Role::whereIn('role_name', ['rider', 'club'])->get();
+        $roles = Role::whereIn('role_name', ['rider', 'club'])->get();
+
+        // Role translations
+        $roleTranslations = [
+            'rider' => '選手',
+            'club' => '乗馬クラブ'
+        ];
+
+        return view('auth.register', [
+            'roles' => $roles,
+            'roleTranslations' => $roleTranslations,
+        ]);
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', 'in:club,rider'], // Add validation for role
+            'role' => ['required', 'exists:roles,role_id'],
         ]);
 
         $user = User::create([
+            'role_id' => $request->role,
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role, // Save the role to the user
         ]);
+
+        // $role = Role::find($request->role);
+        // $user->roles()->attach($role);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('dashboard'));
     }
 }

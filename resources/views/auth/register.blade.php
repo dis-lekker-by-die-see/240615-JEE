@@ -61,8 +61,11 @@
             <x-input-label for="role" :value="__('Role')" />
             <select id="role" name="role" class="block mt-1 w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500" onchange="updateRoleDescription()">
                 <option value="" disabled selected>選択してください</option>
-                <option value="club">乗馬クラブ</option>
-                <option value="rider">選手</option>
+                {{-- <option value="club">乗馬クラブ</option>
+                <option value="rider">選手</option> --}}
+                @foreach ($roles as $role)
+                    <option value="{{ $role->role_id }}">{{ $roleTranslations[$role->role_name] }}</option>
+                @endforeach
             </select>
             <x-input-error :messages="$errors->get('role')" class="mt-2" />
         </div>

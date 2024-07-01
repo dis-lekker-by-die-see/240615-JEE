@@ -116,7 +116,9 @@ Route::match(['get', 'post'], '/db-test', function (Request $request) {
 //Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
-        $role = auth()->user()->role;
+        //$role = auth()->user()->role;
+        //$role = auth()->user()->roles->pluck('role_name')->first();
+        $role = auth()->user()->role->role_name ?? null;
         switch ($role) {
             case 'kami':
                 return redirect()->route('kami.dashboard');
