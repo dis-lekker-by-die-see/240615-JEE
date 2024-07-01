@@ -23,6 +23,7 @@ class Rider extends Model
 
     // Specify the attributes that are mass assignable
     protected $fillable = [
+        'user_id',
         'club_id',
         'rider_first_names',
         'rider_first_names_furigana',
@@ -47,6 +48,11 @@ class Rider extends Model
     public function club()
     {
         return $this->belongsTo(Club::class, 'club_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
     
 }

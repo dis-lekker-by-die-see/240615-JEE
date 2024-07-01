@@ -23,6 +23,7 @@ class Club extends Model
 
     // Specify the attributes that are mass assignable
     protected $fillable = [
+        'user_id',
         'association_id',
         'club_name',
         'club_email',
@@ -48,22 +49,32 @@ class Club extends Model
     ];
 }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     // Define the relationship with the Association model
     public function association()
     {
         return $this->belongsTo(Association::class, 'association_id');
     }
 
-    // Define the relationship with the Rider model
-    public function riders()
+    public function teams()
     {
-        return $this->hasMany(Rider::class, 'club_id');
+        return $this->hasMany(Team::class, 'club_id');
     }
 
     // Define the relationship with the Horse model
     public function horses()
     {
         return $this->hasMany(Horse::class, 'club_id');
+    }
+
+    // Define the relationship with the Rider model
+    public function riders()
+    {
+        return $this->hasMany(Rider::class, 'club_id');
     }
 
 }

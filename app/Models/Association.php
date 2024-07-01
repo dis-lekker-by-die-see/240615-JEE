@@ -23,6 +23,7 @@ class Association extends Model
 
     // Specify the attributes that are mass assignable
     protected $fillable = [
+        'user_id',
         'association_name',
         'association_email',
         'association_password',
@@ -48,4 +49,9 @@ class Association extends Model
         'updated_at' => 'datetime',
     ];
 }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
