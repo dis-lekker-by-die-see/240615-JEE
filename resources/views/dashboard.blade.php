@@ -14,19 +14,19 @@
                 <div class="container">
                     @if ($user->role === 'rider')
                         <div class="p-6 text-gray-900 dark:text-gray-100">
-                            {{ __("You are a RIDER") }}
+                            {{ __("dashboard.blade.php: You are a RIDER") }}
                         </div>
                     @elseif ($user->role === 'club')
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        {{ __("You are a CLUB admin") }}
+                        {{ __("dashboard.blade.php: You are a CLUB admin") }}
                     </div>
                     @elseif ($user->role === 'organizer')
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        {{ __("You are the event ORGANIZER") }}
+                        {{ __("dashboard.blade.php: You are the event ORGANIZER") }}
                     </div>
                     @elseif ($user->role === 'kami')
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        {{ __("You are the GOD of this universe") }}
+                        {{ __("dashboard.blade.php: You are the GOD of this universe") }}
                     </div>
                     @else
                         <p>You are a black hole with no ROLE</p>

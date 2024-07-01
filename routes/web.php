@@ -14,6 +14,7 @@ use App\Http\Controllers\ClubDashboardController;
 use App\Http\Controllers\RiderDashboardController;
 
 use App\Http\Controllers\QueryController;
+//use App\Http\Controllers\RegisterNewUserController;
 
 
 Route::get('/test-app-name', function () {
@@ -112,7 +113,8 @@ Route::match(['get', 'post'], '/db-test', function (Request $request) {
 });
 
 // Routes for authenticated and verified users
-Route::middleware(['auth', 'verified'])->group(function () {
+//Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         $role = auth()->user()->role;
         switch ($role) {
@@ -142,16 +144,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // club.query //////////////////////////////////////////////////////////
+    //Route::middleware(['role:club', 'verified'])->group(function () { // use this line during production
     Route::middleware('role:club')->group(function () {
         Route::get('/club/dashboard', [ClubDashboardController::class, 'index'])->name('club.dashboard');
     });
 
     // rider.query //////////////////////////////////////////////////////////
+    //Route::middleware(['role:rider', 'verified'])->group(function () { // use this line during production
     Route::middleware('role:rider')->group(function () {
         Route::get('/rider/dashboard', [RiderDashboardController::class, 'index'])->name('rider.dashboard');
     });
 });
 
+// // Registration routes
+// Route::get('register', [RegisterNewUserController::class, 'create'])->name('register');
+// Route::post('register', [RegisterNewUserController::class, 'store']);
 
 
 
