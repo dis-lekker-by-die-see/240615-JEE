@@ -15,12 +15,18 @@ use App\Http\Controllers\RiderDashboardController;
 
 use App\Http\Controllers\QueryController;
 //use App\Http\Controllers\RegisterNewUserController;
+use App\Http\Controllers\CountryController;
 
+/////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/test-app-name', function () {
     return config('app.name');
     return env('APP_NAME', 'Default from env function');
 });
+
+Route::get('/flags', [CountryController::class, 'index'])->name('flags.index');
+
+/////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/', function () {
     return view('welcome');
