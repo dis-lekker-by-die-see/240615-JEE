@@ -25,6 +25,7 @@ class Rider extends Model
     protected $fillable = [
         'user_id',
         'club_id',
+        'country_id',
         'rider_first_names',
         'rider_first_names_furigana',
         'rider_last_name',
@@ -54,5 +55,8 @@ class Rider extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id', 'country_id');
+    }
 }

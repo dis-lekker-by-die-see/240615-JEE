@@ -163,10 +163,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/rider/dashboard', [RiderDashboardController::class, 'index'])->name('rider.dashboard');
     });
 });
+//////////////////////////////////////////////////////////////////////////////////
+use App\Http\Controllers\RiderController;
 
-// // Registration routes
-// Route::get('register', [RegisterNewUserController::class, 'create'])->name('register');
-// Route::post('register', [RegisterNewUserController::class, 'store']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/rider/dashboard', [RiderController::class, 'show'])->name('rider.dashboard');
+    Route::post('/rider/dashboard', [RiderController::class, 'store'])->name('rider.dashboard.store');
+});
+
+//////////////////////////////////////////////////////////////////////////////////
 
 
 
