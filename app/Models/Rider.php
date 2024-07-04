@@ -25,6 +25,7 @@ class Rider extends Model
     protected $fillable = [
         'user_id',
         'club_id',
+        'is_approved_by_club',
         'country_id',
         'rider_first_names',
         'rider_first_names_furigana',

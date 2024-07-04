@@ -34,8 +34,15 @@ class RiderController extends Controller
             'rider_sex' => 'required|in:女子,男子',
             'rider_date_of_birth' => 'required|date',
             'country_id' => 'required|exists:countries,country_id',
-            'club_id' => 'required|exists:clubs,club_id', 
+            'club_id' => 'required|exists:clubs,club_id',
+            'is_approved_by_club' => 'boolean',
         ]);
+
+        $rider = Rider::where('user_id', $user->id)->first(); // determine if the current user has already registered their rider information.
+
+        if ($rider && $rider->club_id != $validatedData['club_id']) {
+            $validatedData['is_approved_by_club'] = false;
+        } 
 
         $rider = Rider::updateOrCreate(
             ['user_id' => $user->id],

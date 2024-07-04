@@ -95,6 +95,11 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                @if (isset($rider) && $rider->is_approved_by_club)
+                                    <p class="text-green-500 mt-2">Approved by {{ $rider->club->club_name }}</p>
+                                @else
+                                    <p class="text-red-500 mt-2">Not Yet Approved</p>
+                                @endif
                             </div>
                         </div>
                         <div class="mt-6">
