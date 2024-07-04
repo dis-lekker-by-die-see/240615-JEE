@@ -51,4 +51,36 @@ class RiderController extends Controller
 
         return redirect()->route('rider.dashboard')->with('success', 'Information saved successfully.');
     }
+
+    // public function getRiderInfo($id)
+    // {
+    //     $rider = Rider::find($id);
+    //     if (!$rider) {
+    //         return response()->json(['error' => 'Rider not found'], 404);
+    //     }
+    //     return response()->json($rider);
+    // }
+
+    public function getRiderInfo($id)
+    {
+        $rider = Rider::with('country')->find($id);
+        if (!$rider) {
+            return response()->json(['error' => 'Rider not found'], 404);
+        }
+        return response()->json([
+            'rider_first_names' => $rider->rider_first_names,
+            'rider_first_names_furigana' => $rider->rider_first_names_furigana,
+            'rider_last_name' => $rider->rider_last_name,
+            'rider_last_name_furigana' => $rider->rider_last_name_furigana,
+            'rider_registration_number' => $rider->rider_registration_number,
+            'rider_international_registration_number' => $rider->rider_international_registration_number,
+            'rider_sex' => $rider->rider_sex,
+            'rider_date_of_birth' => $rider->rider_date_of_birth->format('Y-m-d'),
+            'country_name' => $rider->country->country_name,
+            'country_native_name' => $rider->country->country_native_name,
+        ]);
+    }
+
+    
+
 }

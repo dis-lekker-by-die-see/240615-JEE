@@ -17,6 +17,12 @@ use App\Http\Controllers\QueryController;
 //use App\Http\Controllers\RegisterNewUserController;
 use App\Http\Controllers\CountryController;
 
+use App\Http\Controllers\RiderController;
+use App\Http\Controllers\ClubController;
+use App\Models\Rider;
+
+
+
 /////////////////////////////////////////////////////////////////////////////////
 
 Route::get('/test-app-name', function () {
@@ -164,7 +170,6 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 //////////////////////////////////////////////////////////////////////////////////
-use App\Http\Controllers\RiderController;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/rider/dashboard', [RiderController::class, 'show'])->name('rider.dashboard');
@@ -173,7 +178,25 @@ Route::middleware(['auth'])->group(function () {
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// Route::middleware(['auth', 'role:club'])->group(function () {
+//     Route::get('/club/dashboard', [ClubController::class, 'dashboard'])->name('club.dashboard');
+//     Route::post('/club/approve-rider/{rider}', [ClubController::class, 'approveRider']);
+//     Route::post('/club/decline-rider/{rider}', [ClubController::class, 'declineRider']);
+//     Route::get('/club/rider-info/{rider}', function($rider_id) {
+//         $rider = Rider::find($rider_id);
+//         return response()->json($rider);
+//     });
+// });
 
+
+
+Route::middleware(['auth', 'role:club'])->group(function () {
+    Route::get('/club/dashboard', [ClubController::class, 'dashboard'])->name('club.dashboard');
+    Route::post('/club/approve/{rider_id}', [ClubController::class, 'approveRider'])->name('club.approveRider');
+    Route::post('/club/decline/{rider_id}', [ClubController::class, 'declineRider'])->name('club.declineRider');
+});
+
+//////////////////////////////////////////////////////////////////////////////////
 
 
 
