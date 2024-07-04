@@ -122,7 +122,7 @@
                             {{ session('success') }}
                         </div>
                     @endif
-                    <form method="POST" action="{{ route('rider.dashboard.store') }}" class="space-y-4">
+                    {{-- <form method="POST" action="{{ route('rider.dashboard.store') }}" class="space-y-4">
                         @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="mb-4">
@@ -162,7 +162,7 @@
                                     <option value="男子" {{ (isset($rider) && $rider->rider_sex == '男子') ? 'selected' : '' }}>男子</option>
                                 </select>
                             </div>
-                            
+
                             <div>
                                 <label for="rider_date_of_birth" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Date of Birth</label>
                                 <input type="date" name="rider_date_of_birth" id="rider_date_of_birth" value="{{ isset($rider->rider_date_of_birth) ? $rider->rider_date_of_birth->format('Y-m-d') : 'yyyy-mm-dd' }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
@@ -195,7 +195,106 @@
                                 Save
                             </button>
                         </div>
+                    </form> --}}
+                    <form method="POST" action="{{ route('rider.dashboard.store') }}" class="space-y-4">
+                        @csrf
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="mb-4">
+                                <label for="rider_first_names" class="block text-sm font-medium text-gray-700 dark:text-gray-300">First Names <span class="text-red-500">*</span></label>
+                                <input type="text" name="rider_first_names" id="rider_first_names" value="{{ $rider->rider_first_names ?? '' }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" required>
+                            </div>
+                    
+                            <div class="mb-4">
+                                <label for="rider_first_names_furigana" class="block text-sm font-medium text-gray-700 dark:text-gray-300">First Names Furigana <span class="text-red-500">*</span></label>
+                                <input type="text" name="rider_first_names_furigana" id="rider_first_names_furigana" value="{{ $rider->rider_first_names_furigana ?? '' }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" required>
+                                @error('rider_first_names_furigana')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+                    
+                            <div class="mb-4">
+                                <label for="rider_last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Last Name <span class="text-red-500">*</span></label>
+                                <input type="text" name="rider_last_name" id="rider_last_name" value="{{ $rider->rider_last_name ?? '' }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" required>
+                            </div>
+                    
+                            <div class="mb-4">
+                                <label for="rider_last_name_furigana" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Last Name Furigana <span class="text-red-500">*</span></label>
+                                <input type="text" name="rider_last_name_furigana" id="rider_last_name_furigana" value="{{ $rider->rider_last_name_furigana ?? '' }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" required>
+                                @error('rider_last_name_furigana')
+                                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+                    
+                            <div class="mb-4">
+                                <label for="rider_registration_number" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Registration Number</label>
+                                <input type="text" name="rider_registration_number" id="rider_registration_number" value="{{ $rider->rider_registration_number ?? '' }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md">
+                            </div>
+                    
+                            <div class="mb-4">
+                                <label for="rider_international_registration_number" class="block text-sm font-medium text-gray-700 dark:text-gray-300">International Registration Number</label>
+                                <input type="text" name="rider_international_registration_number" id="rider_international_registration_number" value="{{ $rider->rider_international_registration_number ?? '' }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md">
+                            </div>
+                    
+                            <div class="mb-4">
+                                <label for="rider_sex" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Sex <span class="text-red-500">*</span></label>
+                                <select name="rider_sex" id="rider_sex" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" required>
+                                    <option value="" disabled selected>性別</option>
+                                    <option value="女子" {{ (isset($rider) && $rider->rider_sex == '女子') ? 'selected' : '' }}>女子</option>
+                                    <option value="男子" {{ (isset($rider) && $rider->rider_sex == '男子') ? 'selected' : '' }}>男子</option>
+                                </select>
+                            </div>
+                            
+                            {{-- <div>
+                                <label for="rider_date_of_birth" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Date of Birth <span class="text-red-500">*</span></label>
+                                <input type="date" name="rider_date_of_birth" id="rider_date_of_birth" value="{{ isset($rider->rider_date_of_birth) ? $rider->rider_date_of_birth->format('Y-m-d') : 'yyyy-MM-dd' }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
+                            </div> --}}
+                    
+                            <div>
+                                <label for="rider_date_of_birth" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Date of Birth <span class="text-red-500">*</span></label>
+                                <input type="date" name="rider_date_of_birth" id="rider_date_of_birth" value="{{ isset($rider->rider_date_of_birth) ? $rider->rider_date_of_birth->format('Y-m-d') : '' }}" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="country_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Country <span class="text-red-500">*</span></label>
+                                {{-- <select name="country_id" id="country_id" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" required>
+                                    @foreach($countries as $country)
+                                        <option value="{{ $country->country_id }}" {{ (isset($rider) && $rider->country_id == $country->country_id) ? 'selected' : '' }}>
+                                            {{ $country->country_code }} - {{ $country->country_native_name }} {{ $country->country_emoji }}
+                                        </option>
+                                    @endforeach
+                                </select> --}}
+                    
+                                <select name="country_id" id="country_id" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" required>
+                                    <option value="" disabled selected>国を選択して下さい</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{ $country->country_id }}" {{ (isset($rider) && $rider->country_id == $country->country_id) ? 'selected' : '' }}>
+                                            {{ $country->country_code }} - {{ $country->country_native_name }} {{ $country->country_emoji }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="club_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Club <span class="text-red-500">*</span></label>
+                                <select name="club_id" id="club_id" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" required>
+                                    <option value="" disabled selected>乗馬クラブを選択して下さい</option>
+                                    @foreach($clubs as $club)
+                                        <option value="{{ $club->club_id }}" {{ (isset($rider) && $rider->club_id == $club->club_id) ? 'selected' : '' }}>
+                                            {{ $club->club_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 active:bg-blue-600 disabled:opacity-25 transition">
+                                Save
+                            </button>
+                        </div>
                     </form>
+                    
+                    
                 </div>
             </div>
         </div>

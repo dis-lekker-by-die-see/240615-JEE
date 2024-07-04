@@ -52,6 +52,7 @@ use App\Models\Rider;
 use App\Models\Country;
 use App\Models\Club; // Add this line to import the Club model
 use Illuminate\Support\Facades\Auth;
+use App\Rules\Katakana;
 
 class RiderController extends Controller
 {
@@ -70,9 +71,9 @@ class RiderController extends Controller
         $user = Auth::user();
         $validatedData = $request->validate([
             'rider_first_names' => 'required|string|max:255',
-            'rider_first_names_furigana' => 'required|string|max:255',
+            'rider_first_names_furigana' => ['required', 'string', 'max:255', new Katakana],
             'rider_last_name' => 'required|string|max:255',
-            'rider_last_name_furigana' => 'required|string|max:255',
+            'rider_last_name_furigana' => ['required', 'string', 'max:255', new Katakana],
             'rider_registration_number' => 'required|string|max:50',
             'rider_international_registration_number' => 'nullable|string|max:50',
             'rider_sex' => 'required|in:女子,男子',
