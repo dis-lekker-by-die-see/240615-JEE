@@ -52,15 +52,6 @@ class RiderController extends Controller
         return redirect()->route('rider.dashboard')->with('success', 'Information saved successfully.');
     }
 
-    // public function getRiderInfo($id)
-    // {
-    //     $rider = Rider::find($id);
-    //     if (!$rider) {
-    //         return response()->json(['error' => 'Rider not found'], 404);
-    //     }
-    //     return response()->json($rider);
-    // }
-
     public function getRiderInfo($id)
     {
         $rider = Rider::with('country')->find($id);
@@ -81,6 +72,5 @@ class RiderController extends Controller
         ]);
     }
 
-    
 
 }
