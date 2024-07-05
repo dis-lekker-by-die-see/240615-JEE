@@ -11,18 +11,25 @@ class ClubApprovalMail extends Mailable
     use Queueable, SerializesModels;
 
     public $subject;
-    public $message;
+    public $body;
 
-    public function __construct($subject, $message)
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    public function __construct($subject, $body)
     {
         $this->subject = $subject;
-        $this->message = $message;
+        $this->body = $body;
     }
 
     public function build()
     {
         return $this->subject($this->subject)
                     ->view('emails.clubApproval')
-                    ->with(['message' => $this->message]);
+                    ->with([
+                        'body' => $this->body,
+                    ]);
     }
 }

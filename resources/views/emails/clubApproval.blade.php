@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Club Approval</title>
+    <title>{{ $subject }}</title>
 </head>
 <body>
-    <p>{{ $message }}</p>
+    <p>{{ $body }}</p>
 </body>
 </html>

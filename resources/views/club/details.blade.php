@@ -74,6 +74,11 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                @if (isset($club) && $club->is_approved_by_association)
+                                    <p class="text-green-500 mt-2">Approved by {{ $club->association->association_name }}</p>
+                                @else
+                                    <p class="text-red-500 mt-2">Not Yet Approved</p>
+                                @endif
                             </div>
                         </div>
                         <div class="mt-6">

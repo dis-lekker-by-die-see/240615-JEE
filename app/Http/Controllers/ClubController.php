@@ -164,15 +164,6 @@ class ClubController extends Controller
         return redirect()->route('club.dashboard')->with('success', 'Rider declined successfully.');
     }
 
-    // public function show()
-    // {
-    //     $user = Auth::user();
-    //     $club = Club::where('user_id', $user->id)->first();
-    //     $countries = Country::orderBy('country_code', 'asc')->get();
-    //     $associations = Association::orderBy('association_name', 'asc')->get();
-
-    //     return view('club.show', compact('club', 'countries', 'associations'));
-    // }
     public function show()
     {
         $user = Auth::user();
@@ -216,4 +207,43 @@ class ClubController extends Controller
 
         return redirect()->route('club.dashboard')->with('success', 'Club information saved successfully.');
     }
+
+    // public function getClubInfo($id)
+    // {
+    //     $club = Club::with('country', 'association')->find($id);
+    //     if (!$club) {
+    //         return response()->json(['error' => 'Club not found'], 404);
+    //     }
+    //     return response()->json([
+    //         'club_name' => $club->club_name,
+    //         'club_registration_officer' => $club->club_registration_officer,
+    //         'club_mobile' => $club->club_mobile,
+    //         'club_phone' => $club->club_phone,
+    //         'club_fax' => $club->club_fax,
+    //         'club_address' => $club->club_address,
+    //         'country_name' => $club->country->country_name,
+    //         'country_native_name' => $club->country->country_native_name,
+    //         'association_name' => $club->association->association_name,
+    //     ]);
+    // }
+    public function getClubInfo($id)
+    {
+        $club = Club::with('country')->find($id);
+        if (!$club) {
+            return response()->json(['error' => 'Club not found'], 404);
+        }
+        return response()->json([
+            'club_name' => $club->club_name,
+            'club_registration_officer' => $club->club_registration_officer,
+            'club_mobile' => $club->club_mobile,
+            'club_phone' => $club->club_phone,
+            'club_fax' => $club->club_fax,
+            'club_address' => $club->club_address,
+            'country_name' => $club->country->country_name,
+            'country_native_name' => $club->country->country_native_name,
+            'association_name' => $club->association->association_name,
+        ]);
+    }
+    
+
 }
