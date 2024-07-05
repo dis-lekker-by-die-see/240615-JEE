@@ -157,24 +157,6 @@ Route::middleware(['auth'])->group(function () {
 
 //////////////////////////////////////////////////////////////////////////////////
 
-// Route::middleware(['auth', 'role:club'])->group(function () {
-//     Route::get('/club/dashboard', [ClubController::class, 'dashboard'])->name('club.dashboard');
-//     Route::post('/club/approve/{rider_id}', [ClubController::class, 'approveRider'])->name('club.approveRider');
-//     Route::post('/club/decline/{rider_id}', [ClubController::class, 'declineRider'])->name('club.declineRider');
-//     Route::get('/club/dashboard', [ClubController::class, 'show'])->name('club.dashboard'); //
-//     Route::post('/club/dashboard', [ClubController::class, 'store'])->name('club.dashboard.store');
-
-// });
-//////////////////////////////////////////////////////////////////////////////////
-
-// Route::middleware(['auth', 'role:club'])->group(function () {
-//     Route::get('/club/dashboard', [ClubController::class, 'dashboard'])->name('club.dashboard');
-//     Route::post('/club/approve/{rider_id}', [ClubController::class, 'approveRider'])->name('club.approveRider');
-//     Route::post('/club/decline/{rider_id}', [ClubController::class, 'declineRider'])->name('club.declineRider');
-//     Route::get('/club/show', [ClubController::class, 'show'])->name('club.show'); // Changed route URL to '/club/show'
-//     Route::post('/club/store', [ClubController::class, 'store'])->name('club.store'); // Adjusted to reflect 'store' action correctly
-// });
-
 Route::middleware(['auth', 'role:club'])->group(function () {
     Route::get('/club/dashboard', [ClubController::class, 'dashboard'])->name('club.dashboard');
     Route::post('/club/approve/{rider_id}', [ClubController::class, 'approveRider'])->name('club.approveRider');
