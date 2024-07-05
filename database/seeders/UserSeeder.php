@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
             'name' => 'nick', // add user name
             'email' => 'nickmoralas@gmail.com',          
             'password' => Hash::make('nick'),
-            'role' => 'rider', // roles: organizer, club, rider
+            'role' => 'rider', // roles: association, club, rider
         ]);
 
     }
@@ -36,5 +36,5 @@ class UserSeeder extends Seeder
 //     'name' => 'nick', // add user name
 //     'email' => 'nickmoralas@gmail.com',          
 //     'password' => Hash::make('nick-240701'),
-//     'role' => 'rider', // roles: organizer, club, rider
+//     'role' => 'rider', // roles: association, club, rider
 // ]);

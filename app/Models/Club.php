@@ -34,6 +34,7 @@ class Club extends Model
         'club_phone',
         'club_fax',
         'club_address',
+        'is_approved_by_association',
     ];
 
     // Define the attributes that should be hidden for arrays

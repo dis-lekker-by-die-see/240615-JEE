@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 use App\Http\Controllers\KamiDashboardController;
-use App\Http\Controllers\OrganizerDashboardController;
+use App\Http\Controllers\AssociationDashboardController;
 use App\Http\Controllers\ClubDashboardController;
 use App\Http\Controllers\RiderDashboardController;
 use App\Http\Controllers\QueryController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\RiderController;
 use App\Http\Controllers\ClubController;
+use App\Http\Controllers\AssociationController;
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -118,8 +119,8 @@ Route::middleware(['auth'])->group(function () {
         switch ($role) {
             case 'kami':
                 return redirect()->route('kami.dashboard');
-            case 'organizer':
-                return redirect()->route('organizer.dashboard');
+            case 'association':
+                return redirect()->route('association.dashboard');
             case 'club':
                 return redirect()->route('club.dashboard');
             case 'rider':
@@ -136,9 +137,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/kami/query', [QueryController::class, 'index'])->name('query');
     Route::post('/kami/query', [QueryController::class, 'executeQuery'])->name('query.execute');
 
-    // organizer.query //////////////////////////////////////////////////////////
-    Route::middleware('role:organizer')->group(function () {
-        Route::get('/organizer/dashboard', [OrganizerDashboardController::class, 'index'])->name('organizer.dashboard');
+    // association.query //////////////////////////////////////////////////////////
+    Route::middleware('role:association')->group(function () {
+        Route::get('/association/dashboard', [AssociationDashboardController::class, 'index'])->name('association.dashboard');
     });
 
     // club.query //////////////////////////////////////////////////////////
@@ -156,10 +157,30 @@ Route::middleware(['auth'])->group(function () {
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// Route::middleware(['auth', 'role:club'])->group(function () {
+//     Route::get('/club/dashboard', [ClubController::class, 'dashboard'])->name('club.dashboard');
+//     Route::post('/club/approve/{rider_id}', [ClubController::class, 'approveRider'])->name('club.approveRider');
+//     Route::post('/club/decline/{rider_id}', [ClubController::class, 'declineRider'])->name('club.declineRider');
+//     Route::get('/club/dashboard', [ClubController::class, 'show'])->name('club.dashboard'); //
+//     Route::post('/club/dashboard', [ClubController::class, 'store'])->name('club.dashboard.store');
+
+// });
+//////////////////////////////////////////////////////////////////////////////////
+
+// Route::middleware(['auth', 'role:club'])->group(function () {
+//     Route::get('/club/dashboard', [ClubController::class, 'dashboard'])->name('club.dashboard');
+//     Route::post('/club/approve/{rider_id}', [ClubController::class, 'approveRider'])->name('club.approveRider');
+//     Route::post('/club/decline/{rider_id}', [ClubController::class, 'declineRider'])->name('club.declineRider');
+//     Route::get('/club/show', [ClubController::class, 'show'])->name('club.show'); // Changed route URL to '/club/show'
+//     Route::post('/club/store', [ClubController::class, 'store'])->name('club.store'); // Adjusted to reflect 'store' action correctly
+// });
+
 Route::middleware(['auth', 'role:club'])->group(function () {
     Route::get('/club/dashboard', [ClubController::class, 'dashboard'])->name('club.dashboard');
     Route::post('/club/approve/{rider_id}', [ClubController::class, 'approveRider'])->name('club.approveRider');
     Route::post('/club/decline/{rider_id}', [ClubController::class, 'declineRider'])->name('club.declineRider');
+    Route::get('/club/details', [ClubController::class, 'show'])->name('club.details'); // New route for club details
+    Route::post('/club/details', [ClubController::class, 'store'])->name('club.store'); // New route for storing club details
 });
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -167,6 +188,14 @@ Route::middleware(['auth', 'role:club'])->group(function () {
 Route::middleware(['auth', 'role:rider'])->group(function () {
     Route::get('/rider/dashboard', [RiderController::class, 'show'])->name('rider.dashboard');
     Route::post('/rider/dashboard', [RiderController::class, 'store'])->name('rider.dashboard.store');
+});
+
+//////////////////////////////////////////////////////////////////////////////////
+
+Route::middleware(['auth', 'role:association'])->group(function () {
+    Route::get('/association/dashboard', [AssociationController::class, 'dashboard'])->name('association.dashboard');
+    Route::post('/association/approve/{club_id}', [AssociationController::class, 'approveClub'])->name('association.approveClub');
+    Route::post('/association/decline/{club_id}', [AssociationController::class, 'declineClub'])->name('association.declineClub');
 });
 
 //////////////////////////////////////////////////////////////////////////////////

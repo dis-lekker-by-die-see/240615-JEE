@@ -20,9 +20,9 @@
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         {{ __("dashboard.blade.php: You are a CLUB admin") }}
                     </div>
-                    @elseif ($user->role === 'organizer')
+                    @elseif ($user->role === 'association')
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        {{ __("dashboard.blade.php: You are the event ORGANIZER") }}
+                        {{ __("dashboard.blade.php: You are an ASSOCIATION organizing events") }}
                     </div>
                     @elseif ($user->role === 'kami')
                     <div class="p-6 text-gray-900 dark:text-gray-100">

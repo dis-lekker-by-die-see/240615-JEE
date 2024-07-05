@@ -18,7 +18,7 @@ class UpdateUserPasswordSeeder extends Seeder
                 //'name' => 'John Doe',
                 //'email' => 'john@example.com',
                 'password' => Hash::make('club'),
-                //'role' => 'organizer',
+                //'role' => 'association',
                 'updated_at' => now(),
 
         ]);

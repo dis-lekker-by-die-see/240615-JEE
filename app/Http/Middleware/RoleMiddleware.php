@@ -38,3 +38,4 @@ class RoleMiddleware
         return redirect('/');
     }
 }
+
