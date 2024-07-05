@@ -3,23 +3,17 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
-use PhpParser\JsonDecoder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\DashboardController;
 
 use App\Http\Controllers\KamiDashboardController;
 use App\Http\Controllers\OrganizerDashboardController;
 use App\Http\Controllers\ClubDashboardController;
 use App\Http\Controllers\RiderDashboardController;
-
 use App\Http\Controllers\QueryController;
-//use App\Http\Controllers\RegisterNewUserController;
 use App\Http\Controllers\CountryController;
-
 use App\Http\Controllers\RiderController;
 use App\Http\Controllers\ClubController;
-use App\Models\Rider;
 
 /////////////////////////////////////////////////////////////////////////////////
 
@@ -39,10 +33,6 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-// Route::middleware(['auth'])->group(function () {
-//     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-// });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -122,12 +112,8 @@ Route::match(['get', 'post'], '/db-test', function (Request $request) {
     }
 });
 
-// Routes for authenticated and verified users
-//Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
-        //$role = auth()->user()->role;
-        //$role = auth()->user()->roles->pluck('role_name')->first();
         $role = auth()->user()->role->role_name ?? null;
         switch ($role) {
             case 'kami':
