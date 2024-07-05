@@ -10,8 +10,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User; 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RiderApprovalMail;
-
+use App\Models\Association;
 use Illuminate\Support\Facades\Log;
+
+use App\Models\Country;
 
 class ClubController extends Controller
 {
@@ -63,5 +65,41 @@ class ClubController extends Controller
 
         return redirect()->route('club.dashboard')->with('success', 'Rider declined successfully.');
     }
+
+    public function show()
+    {
+        $user = Auth::user();
+        $rider = Club::where('user_id', $user->id)->first();
+        $countries = Country::orderBy('country_code', 'asc')->get();
+        $associations = Association::orderBy('association_name', 'asc')->get();
+
+        return view('club.dashboard', compact('club', 'countries', 'associations'));
+    }
+
+
+    public function store(Request $request)
+    {
+        $user = Auth::user();
+        $validatedData = $request->validate([
+            
+        
+            
+            'club_name',
+            'club_registration_officer',
+            'club_mobile',
+            'club_phone',
+            'club_fax',
+            'club_address',
+            'country_id' => 'required|exists:countries,country_id',
+            'association_id' => 'required|exists:associations,association_id',
+            'is_approved_by_association' => 'boolean',
+
+        ]);
+
+    }
+
+
+
+
 
 }

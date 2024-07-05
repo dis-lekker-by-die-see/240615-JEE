@@ -25,6 +25,7 @@ class Club extends Model
     protected $fillable = [
         'user_id',
         'association_id',
+        'country_id',
         'club_name',
         'club_email',
         'club_password',
@@ -42,12 +43,12 @@ class Club extends Model
 
     // Define the attributes that should be cast to native types
     protected function casts(): array
-{
-    return [
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-    ];
-}
+    {
+        return [
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
+        ];
+    }
 
     public function user()
     {
@@ -58,6 +59,11 @@ class Club extends Model
     public function association()
     {
         return $this->belongsTo(Association::class, 'association_id');
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id', 'country_id');
     }
 
     public function teams()
