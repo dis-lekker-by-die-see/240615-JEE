@@ -227,7 +227,7 @@
                     @if (Auth::user()->role->role_name === 'club')
                         <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                             <x-nav-link :href="route('club.riders')" :active="request()->routeIs('club.riders')">
-                                {{ __('選手') }}
+                                {{ __('選手管理') }}
                             </x-nav-link>
                         </div>
                     @endif
@@ -319,7 +319,7 @@
                 @endif
                 @if (Auth::user()->role->role_name === 'club')
                     <x-responsive-nav-link :href="route('club.riders')" :active="request()->routeIs('club.riders')">
-                        {{ __('選手') }}
+                        {{ __('選手管理') }}
                     </x-responsive-nav-link>
                 @endif
             @endif

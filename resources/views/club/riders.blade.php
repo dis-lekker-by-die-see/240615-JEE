@@ -19,7 +19,7 @@
                             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                                 <thead>
                                     <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Rider Name</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">選手名</th>
                                         <th class="px-6 py-3 text-right"></th>
                                     </tr>
                                 </thead>
@@ -30,7 +30,7 @@
                                                 {{ $rider->rider_last_name }} {{ $rider->rider_first_names }}
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <button class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900" onclick="openModal('{{ $rider->rider_id }}')">Review Rider Info</button>
+                                                <button class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900" onclick="openModal('{{ $rider->rider_id }}')">選手を承認する</button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -48,7 +48,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="container">        
                     <div class="mb-6">
-                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Registered Riders</h3>
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">選手一覧</h3>
                         <div id="ridersTableContainer">
                             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                                 <thead>
@@ -58,6 +58,7 @@
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">フリガナ</th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">登録番号</th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">性別</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">ユーザ有り</th>
                                         <th class="px-6 py-3 text-right"></th>
                                     </tr>
                                 </thead>
@@ -69,8 +70,12 @@
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $rider->rider_last_name_furigana }} {{ $rider->rider_first_names_furigana }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $rider->rider_registration_number }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $rider->rider_sex }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <span class="{{ $rider->user_id ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
+                                                    {{ $rider->user_id ? '有り' : '無い' }}
+                                                </span>
+                                            </td>                                            
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                {{-- <button class="text-red-600 dark:text-red-400 hover:text-red-900" onclick="deleteRider('{{ $rider->rider_id }}')">削除</button> --}}
                                                 <button class="text-red-600 dark:text-red-400 hover:text-red-900" onclick="confirmDeleteRider('{{ $rider->rider_id }}')">削除</button>
                                             </td>
                                         </tr>
