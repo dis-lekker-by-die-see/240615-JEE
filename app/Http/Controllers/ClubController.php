@@ -289,6 +289,19 @@ class ClubController extends Controller
         return redirect()->route('club.riders')->with('error', 'Club not found.');
     }
 
+    public function deleteRider($rider_id)
+    {
+        $rider = Rider::find($rider_id);
+
+        if ($rider) {
+            $rider->delete();
+            return response()->json(['success' => 'Rider deleted successfully.'], 200);
+        }
+        
+
+        return response()->json(['error' => 'Rider not found.'], 404);
+    }
+
     public function approveRider($rider_id)
     {
         $rider = Rider::find($rider_id);

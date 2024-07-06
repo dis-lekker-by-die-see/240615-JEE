@@ -165,6 +165,7 @@ Route::middleware(['auth', 'role:club'])->group(function () {
 
     //Route::post('/club/riders', [ClubController::class, 'storeRider'])->name('club.storeRider'); // New route for storing rider
     Route::post('/club/storeRider', [ClubController::class, 'storeRider'])->name('club.storeRider'); // New route for storing new rider details
+    Route::delete('/club/riders/{rider_id}', [ClubController::class, 'deleteRider'])->name('club.deleteRider');
 
 
     Route::post('/club/approve/{rider_id}', [ClubController::class, 'approveRider'])->name('club.approveRider');

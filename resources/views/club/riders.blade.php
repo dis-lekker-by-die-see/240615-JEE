@@ -517,7 +517,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Riders for Approval') }}
+            {{ __('選手管理') }}
         </h2>
     </x-slot>
     
@@ -526,9 +526,9 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="container">
                     <div class="mb-6">
-                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">Riders for Approval</h3>
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">承認を待っている選手</h3>
                         @if ($ridersForApproval->isEmpty())
-                            <p class="text-gray-600 dark:text-gray-400">No riders awaiting approval.</p>
+                            <p class="text-gray-600 dark:text-gray-400">承認を待っている選手はありません。</p>
                         @else
                             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                                 <thead>
@@ -739,6 +739,28 @@
             document.getElementById('addRiderForm').classList.remove('hidden');
         });
 
+        // function confirmDeleteRider(riderId) {
+        //     if (confirm('Are you sure you want to delete this rider?')) {
+        //         deleteRider(riderId);
+        //     }
+        // }
+
+        // function deleteRider(riderId) {
+        //     // Your existing deleteRider function code
+        //     fetch(`/club/deleteRider/${riderId}`, {
+        //         method: 'DELETE',
+        //         headers: {
+        //             'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        //             'Content-Type': 'application/json'
+        //         },
+        //     }).then(response => {
+        //         if (response.ok) {
+        //             location.reload(); // Reload the page or update the DOM as necessary
+        //         } else {
+        //             alert('Failed to delete rider.');
+        //         }
+        //     });
+        // }
         function confirmDeleteRider(riderId) {
             if (confirm('Are you sure you want to delete this rider?')) {
                 deleteRider(riderId);
@@ -746,8 +768,7 @@
         }
 
         function deleteRider(riderId) {
-            // Your existing deleteRider function code
-            fetch(`/club/deleteRider/${riderId}`, {
+            fetch(`/club/riders/${riderId}`, {
                 method: 'DELETE',
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
