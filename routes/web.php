@@ -162,6 +162,11 @@ Route::middleware(['auth', 'role:club'])->group(function () {
     Route::get('/club/details', [ClubController::class, 'show'])->name('club.details'); // New route for club details
     Route::post('/club/details', [ClubController::class, 'store'])->name('club.store'); // New route for storing club details
     Route::get('/club/riders', [ClubController::class, 'clubRiders'])->name('club.riders');
+
+    //Route::post('/club/riders', [ClubController::class, 'storeRider'])->name('club.storeRider'); // New route for storing rider
+    Route::post('/club/storeRider', [ClubController::class, 'storeRider'])->name('club.storeRider'); // New route for storing new rider details
+
+
     Route::post('/club/approve/{rider_id}', [ClubController::class, 'approveRider'])->name('club.approveRider');
     Route::post('/club/decline/{rider_id}', [ClubController::class, 'declineRider'])->name('club.declineRider');
 });
