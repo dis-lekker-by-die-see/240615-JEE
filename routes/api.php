@@ -9,5 +9,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
+
 Route::get('/riders/{rider}', [RiderController::class, 'getRiderInfo']);
 Route::get('/clubs/{club}', [ClubController::class, 'getClubInfo']);

@@ -163,11 +163,13 @@ Route::middleware(['auth', 'role:club'])->group(function () {
     Route::post('/club/details', [ClubController::class, 'store'])->name('club.store'); // Route for storing club details
     
     Route::get('/club/horses', [ClubController::class, 'clubHorses'])->name('club.horses');
-    Route::post('/club/storeHorse', [ClubController::class, 'storeHorse'])->name('club.storeHorse'); // Route for storing new rider details
+    //Route::post('/club/storeHorse', [ClubController::class, 'storeHorse'])->name('club.storeHorse'); // Route for storing new rider details
+    Route::post('/club/horses', [ClubController::class, 'storeHorse'])->name('club.storeHorse'); // Route for storing new rider details
+    Route::delete('/club/horses/{horse_id}', [ClubController::class, 'deleteHorse'])->name('club.deleteHorse');
 
     Route::get('/club/riders', [ClubController::class, 'clubRiders'])->name('club.riders');
-    Route::post('/club/storeRider', [ClubController::class, 'storeRider'])->name('club.storeRider'); // Route for storing new rider details
-    Route::delete('/club/riders/{rider_id}', [ClubController::class, 'deleteRider'])->name('club.deleteRider');
+    //Route::post('/club/storeRider', [ClubController::class, 'storeRider'])->name('club.storeRider'); // Route for storing new rider details
+    //Route::delete('/club/riders/{rider_id}', [ClubController::class, 'deleteRider'])->name('club.deleteRider');
     Route::post('/club/approve/{rider_id}', [ClubController::class, 'approveRider'])->name('club.approveRider');
     Route::post('/club/decline/{rider_id}', [ClubController::class, 'declineRider'])->name('club.declineRider');
 });

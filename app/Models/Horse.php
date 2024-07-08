@@ -24,6 +24,7 @@ class Horse extends Model
     // Specify the attributes that are mass assignable
     protected $fillable = [
         'club_id',
+        'country_id',
         'horse_name',
         'horse_name_furigana',
         'horse_registration_number',
@@ -38,17 +39,22 @@ class Horse extends Model
 
     // Define the attributes that should be cast to native types
     protected function casts(): array
-{
-    return [
-        'horse_age' => 'integer',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
-    ];
-}
+    {
+        return [
+            'horse_age' => 'integer',
+            'created_at' => 'datetime',
+            'updated_at' => 'datetime',
+        ];
+    }
 
     public function club()
     {
         return $this->belongsTo(Club::class, 'club_id');
     }
     
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'country_id', 'country_id');
+    }
+
 }

@@ -226,9 +226,9 @@
             document.getElementById('riderModal').classList.add('hidden');
         }
 
-        document.getElementById('addRiderRow').addEventListener('click', function () {
-            document.getElementById('addRiderForm').classList.remove('hidden');
-        });
+        // document.getElementById('addRiderRow').addEventListener('click', function () {
+        //     document.getElementById('addRiderForm').classList.remove('hidden');
+        // });
 
         // function confirmDeleteRider(riderId) {
         //     if (confirm('Are you sure you want to delete this rider?')) {

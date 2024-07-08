@@ -5,16 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\RiderApprovalMail;
-use App\Models\Association;
 use Illuminate\Support\Facades\Log;
-use App\Models\User; 
-use App\Models\Club;
+use App\Rules\Katakana;
 
+use App\Mail\RiderApprovalMail;
+use App\Mail\ClubApprovalMail;
+
+use App\Models\User; 
+use App\Models\Association;
+use App\Models\Club;
 use App\Models\Horse;
 use App\Models\Rider;
 use App\Models\Country;
-use App\Mail\ClubApprovalMail;
+
 
 class ClubController extends Controller
 {
@@ -99,15 +102,16 @@ class ClubController extends Controller
     {
         $user = Auth::user();
         $club = Club::where('user_id', $user->id)->first();
-        
+        $countries = Country::orderBy('country_code', 'asc')->get();
+
         if ($club) {
             $registeredHorses = Horse::where('club_id', $club->club_id)->get();
-            //$countries = Country::orderBy('country_code', 'asc')->get();
-            return view('club.horses', compact('registeredHorses')); //, 'countries'));
+            return view('club.horses', compact('registeredHorses', 'countries'));
         }
 
-        return redirect()->route('club.horses')->with('error', 'Club not found.');
+        return redirect()->route('club.dashboard')->with('error', 'Club not found.');
     }
+
 
     public function deleteHorse($horse_id)
     {
@@ -122,34 +126,35 @@ class ClubController extends Controller
         return response()->json(['error' => 'Horse not found.'], 404);
     }
 
-    // public function storeRider(Request $request)
-    // {
-    //     $user = Auth::user();
-    //     $club = Club::where('user_id', $user->id)->first();
+    public function storeHorse(Request $request)
+    {
+        $user = Auth::user();
+        $club = Club::where('user_id', $user->id)->first();
         
-    //     if (!$club) {
-    //         return redirect()->route('club.horses')->with('error', 'Club not found.');
-    //     }
+        if (!$club) {
+            return redirect()->route('club.horses')->with('error', 'Club not found.');
+        }
 
-    //     $validatedData = $request->validate([
-    //         'rider_first_names' => 'required|string|max:255',
-    //         'rider_first_names_furigana' => 'required|string|max:255',
-    //         'rider_last_name' => 'required|string|max:255',
-    //         'rider_last_name_furigana' => 'required|string|max:255',
-    //         'rider_registration_number' => 'nullable|string|max:50',
-    //         'rider_international_registration_number' => 'nullable|string|max:50',
-    //         'rider_sex' => 'required|in:女子,男子',
-    //         'rider_date_of_birth' => 'required|date',
-    //         'country_id' => 'required|exists:countries,country_id',
-    //     ]);
+        $validatedData = $request->validate([
+            'horse_name' => 'required|string|max:255',
+            'horse_name_furigana' => ['required', 'string', 'max:255', new Katakana],
+            'horse_registration_number' => 'required|string|max:50',
+            'horse_international_registration_number' => 'nullable|string|max:50',
+            'horse_sex' => 'required|in:セン,牝,牡',
+            'horse_color' => 'nullable|string|max:20',
+            'horse_age' => 'nullable|integer',
+            'horse_breed' => 'nullable|string|max:255',
+            'horse_origin' => 'nullable|string|max:255',
+            'horse_owner' => 'nullable|string|max:255',
+            'country_id' => 'required|exists:countries,country_id',
+        ]);
 
-    //     $validatedData['club_id'] = $club->club_id;
-    //     $validatedData['is_approved_by_club'] = true;
+        $validatedData['club_id'] = $club->club_id;
 
-    //     Rider::create($validatedData);
+        Horse::create($validatedData);
 
-    //     return redirect()->route('club.riders')->with('success', 'Rider added successfully.');
-    // }
+        return redirect()->route('club.horses')->with('success', 'Horse added successfully.');
+    }
     /////////////////////////////////////// 選手管理 //////////////////////////////////////////////////////////////
 
     public function approveRider($rider_id)
@@ -201,7 +206,5 @@ class ClubController extends Controller
         }
 
         return redirect()->route('club.riders')->with('error', 'Club not found.');
-    }
-
-    
+    }   
 }

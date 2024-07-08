@@ -1,5 +1,4 @@
 
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -22,8 +21,6 @@
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">フリガナ</th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">登録番号</th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">性別</th>
-                                        {{-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">ユーザ有り</th> --}}
-                                        <th class="px-6 py-3 text-right"></th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
@@ -33,8 +30,7 @@
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $horse->horse_name }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $horse->horse_name_furigana }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $horse->horse_registration_number }}</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $horse->rhorse_sex }}</td>
-                                                                         
+                                            <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $horse->horse_sex }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                 <button class="text-red-600 dark:text-red-400 hover:text-red-900" onclick="confirmDeleteHorse('{{ $horse->horse_id }}')">削除</button>
                                             </td>
@@ -45,71 +41,89 @@
                         </div>
                     </div>
                     <button id="addHorseRow" class="addRowButton bg-blue-500 text-white px-4 py-2 rounded-md mt-4">追加</button>
-
-                    <form method="POST" action="{{ route('club.storeHorse') }}" class="space-y-4 mt-6 hidden" id="addHorseForm">
+                    <form method="POST" action="{{ route('club.storeHorse') }}" class="space-y-4 mt-6 {{ $errors->any() ? '' : 'hidden' }}" id="addHorseForm">
                         @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {{-- <div class="mb-4">
-                                <label for="rider_first_names" class="block text-sm font-medium text-gray-700 dark:text-gray-300">First Names <span class="text-red-500">*</span></label>
-                                <input type="text" name="rider_first_names" id="rider_first_names" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" required>
+                            <div class="mb-4">
+                                <label for="horse_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">馬名 <span class="text-red-500">*</span></label>
+                                <input type="text" name="horse_name" id="horse_name" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" value="{{ old('horse_name') }}" required>
                             </div>
                     
                             <div class="mb-4">
-                                <label for="rider_first_names_furigana" class="block text-sm font-medium text-gray-700 dark:text-gray-300">First Names Furigana <span class="text-red-500">*</span></label>
-                                <input type="text" name="rider_first_names_furigana" id="rider_first_names_furigana" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" required>
-                                @error('rider_first_names_furigana')
+                                <label for="horse_name_furigana" class="block text-sm font-medium text-gray-700 dark:text-gray-300">フリガナ <span class="text-red-500">*</span></label>
+                                <input type="text" name="horse_name_furigana" id="horse_name_furigana" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" value="{{ old('horse_name_furigana') }}" required>
+                                @error('horse_name_furigana')
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
                             </div>
                     
                             <div class="mb-4">
-                                <label for="rider_last_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Last Name <span class="text-red-500">*</span></label>
-                                <input type="text" name="rider_last_name" id="rider_last_name" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" required>
+                                <label for="horse_registration_number" class="block text-sm font-medium text-gray-700 dark:text-gray-300">登録番号 <span class="text-red-500">*</span></label>
+                                <input type="text" name="horse_registration_number" id="horse_registration_number" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" value="{{ old('horse_registration_number') }}" required>
                             </div>
                     
                             <div class="mb-4">
-                                <label for="rider_last_name_furigana" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Last Name Furigana <span class="text-red-500">*</span></label>
-                                <input type="text" name="rider_last_name_furigana" id="rider_last_name_furigana" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" required>
-                                @error('rider_last_name_furigana')
-                                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                                @enderror
+                                <label for="horse_international_registration_number" class="block text-sm font-medium text-gray-700 dark:text-gray-300">国際登録番号</label>
+                                <input type="text" name="horse_international_registration_number" id="horse_international_registration_number" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" value="{{ old('horse_international_registration_number') }}">
                             </div>
                     
                             <div class="mb-4">
-                                <label for="rider_registration_number" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Registration Number</label>
-                                <input type="text" name="rider_registration_number" id="rider_registration_number" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md">
-                            </div>
-                    
-                            <div class="mb-4">
-                                <label for="rider_international_registration_number" class="block text-sm font-medium text-gray-700 dark:text-gray-300">International Registration Number</label>
-                                <input type="text" name="rider_international_registration_number" id="rider_international_registration_number" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md">
-                            </div>
-                    
-                            <div class="mb-4">
-                                <label for="rider_sex" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Sex <span class="text-red-500">*</span></label>
-                                <select name="rider_sex" id="rider_sex" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" required>
-                                    <option value="" disabled selected>性別</option>
-                                    <option value="女子">女子</option>
-                                    <option value="男子">男子</option>
+                                <label for="horse_sex" class="block text-sm font-medium text-gray-700 dark:text-gray-300">性別 <span class="text-red-500">*</span></label>
+                                <select name="horse_sex" id="horse_sex" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" required>
+                                    <option value="" disabled {{ old('horse_sex') == '' ? 'selected' : '' }}>性別</option>
+                                    <option value="セン" {{ old('horse_sex') == 'セン' ? 'selected' : '' }}>セン</option>
+                                    <option value="牝" {{ old('horse_sex') == '牝' ? 'selected' : '' }}>牝</option>
+                                    <option value="牡" {{ old('horse_sex') == '牡' ? 'selected' : '' }}>牡</option>
                                 </select>
                             </div>
                     
-                            <div>
-                                <label for="rider_date_of_birth" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Date of Birth <span class="text-red-500">*</span></label>
-                                <input type="date" name="rider_date_of_birth" id="rider_date_of_birth" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" required>
-                            </div>
-                            
                             <div class="mb-4">
-                                <label for="country_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Country <span class="text-red-500">*</span></label>
+                                <label for="horse_color" class="block text-sm font-medium text-gray-700 dark:text-gray-300">毛色</label>
+                                <select name="horse_color" id="horse_color" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md">
+                                    <option value="" disabled {{ old('horse_color') == '' ? 'selected' : '' }}>毛色</option>
+                                    <option value="鹿毛" {{ old('horse_color') == '鹿毛' ? 'selected' : '' }}>鹿毛</option>
+                                    <option value="黒鹿毛" {{ old('horse_color') == '黒鹿毛' ? 'selected' : '' }}>黒鹿毛</option>
+                                    <option value="栗毛" {{ old('horse_color') == '栗毛' ? 'selected' : '' }}>栗毛</option>
+                                    <option value="芦毛" {{ old('horse_color') == '芦毛' ? 'selected' : '' }}>芦毛</option>
+                                    <option value="栃栗毛" {{ old('horse_color') == '栃栗毛' ? 'selected' : '' }}>栃栗毛</option>
+                                    <option value="青鹿毛" {{ old('horse_color') == '青鹿毛' ? 'selected' : '' }}>青鹿毛</option>
+                                    <option value="青毛" {{ old('horse_color') == '青毛' ? 'selected' : '' }}>青毛</option>
+                                    <option value="粕毛" {{ old('horse_color') == '粕毛' ? 'selected' : '' }}>粕毛</option>
+                                    <option value="ブチ" {{ old('horse_color') == 'ブチ' ? 'selected' : '' }}>ブチ</option>
+                                </select>
+                            </div>
+                    
+                            <div class="mb-4">
+                                <label for="horse_age" class="block text-sm font-medium text-gray-700 dark:text-gray-300">年齢</label>
+                                <input type="number" name="horse_age" id="horse_age" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" value="{{ old('horse_age') }}">
+                            </div>
+                    
+                            <div class="mb-4">
+                                <label for="horse_breed" class="block text-sm font-medium text-gray-700 dark:text-gray-300">品種</label>
+                                <input type="text" name="horse_breed" id="horse_breed" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" value="{{ old('horse_breed') }}">
+                            </div>
+                    
+                            <div class="mb-4">
+                                <label for="horse_origin" class="block text-sm font-medium text-gray-700 dark:text-gray-300">原産地</label>
+                                <input type="text" name="horse_origin" id="horse_origin" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" value="{{ old('horse_origin') }}">
+                            </div>
+                    
+                            <div class="mb-4">
+                                <label for="horse_owner" class="block text-sm font-medium text-gray-700 dark:text-gray-300">所有者</label>
+                                <input type="text" name="horse_owner" id="horse_owner" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" value="{{ old('horse_owner') }}">
+                            </div>
+                    
+                            <div class="mb-4">
+                                <label for="country_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">国 <span class="text-red-500">*</span></label>
                                 <select name="country_id" id="country_id" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" required>
-                                    <option value="" disabled selected>国を選択して下さい</option>
+                                    <option value="" disabled {{ old('country_id') == '' ? 'selected' : '' }}>国を選択して下さい</option>
                                     @foreach($countries as $country)
-                                        <option value="{{ $country->country_id }}">
+                                        <option value="{{ $country->country_id }}" {{ old('country_id') == $country->country_id ? 'selected' : '' }}>
                                             {{ $country->country_code }} - {{ $country->country_native_name }} {{ $country->country_emoji }}
                                         </option>
                                     @endforeach
                                 </select>
-                            </div> --}}
+                            </div>
                         </div>
                         <div class="mt-6">
                             <button type="submit" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-500 focus:outline-none focus:border-blue-700 focus:ring focus:ring-blue-200 active:bg-blue-600 disabled:opacity-25 transition">
@@ -117,20 +131,16 @@
                             </button>
                         </div>
                     </form>
+                    
                 </div>
             </div>
         </div>
     </div>
     
-
     <script>
-        
-    
-        
-
-        // document.getElementById('addRiderRow').addEventListener('click', function () {
-        //     document.getElementById('addRiderForm').classList.remove('hidden');
-        // });
+        document.getElementById('addHorseRow').addEventListener('click', function () {
+            document.getElementById('addHorseForm').classList.remove('hidden');
+        });
 
         function confirmDeleteHorse(horseId) {
             if (confirm('Are you sure you want to delete this horse?')) {
@@ -154,5 +164,4 @@
             });
         }
     </script>
-    
 </x-app-layout>
