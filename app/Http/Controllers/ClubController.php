@@ -121,7 +121,6 @@ class ClubController extends Controller
             $horse->delete();
             return response()->json(['success' => 'Horse deleted successfully.'], 200);
         }
-        
 
         return response()->json(['error' => 'Horse not found.'], 404);
     }

@@ -95,7 +95,7 @@
                     
                             <div class="mb-4">
                                 <label for="horse_age" class="block text-sm font-medium text-gray-700 dark:text-gray-300">年齢</label>
-                                <input type="number" name="horse_age" id="horse_age" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" value="{{ old('horse_age') }}">
+                                <input type="number" name="horse_age" id="horse_age" class="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-md" value="{{ old('horse_age') }}" min="0">
                             </div>
                     
                             <div class="mb-4">
