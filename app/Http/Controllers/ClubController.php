@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Rider;
-use App\Models\Club;
 use Illuminate\Support\Facades\Auth;
-
-use App\Models\User; 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RiderApprovalMail;
 use App\Models\Association;
 use Illuminate\Support\Facades\Log;
+use App\Models\User; 
+use App\Models\Club;
 
+use App\Models\Horse;
+use App\Models\Rider;
 use App\Models\Country;
 use App\Mail\ClubApprovalMail;
 
@@ -40,7 +40,7 @@ class ClubController extends Controller
 
         return view('club.details', compact('club', 'countries', 'associations'));
     }
-
+    /////////////////////////////////////// Club Details //////////////////////////////////////////////////////////////
     public function store(Request $request)
     {
         $user = Auth::user();
@@ -93,34 +93,64 @@ class ClubController extends Controller
             'association_name' => $club->association->association_name,
         ]);
     }
-    
-    public function clubRiders()
+    /////////////////////////////////////// 馬管理 //////////////////////////////////////////////////////////////
+
+    public function clubHorses()
     {
         $user = Auth::user();
         $club = Club::where('user_id', $user->id)->first();
         
         if ($club) {
-            $ridersForApproval = Rider::where('club_id', $club->club_id)->where('is_approved_by_club', 0)->get();
-            $registeredRiders = Rider::where('club_id', $club->club_id)->where('is_approved_by_club', 1)->get();
-            $countries = Country::orderBy('country_code', 'asc')->get();
-            return view('club.riders', compact('ridersForApproval', 'registeredRiders', 'countries'));
+            $registeredHorses = Horse::where('club_id', $club->club_id)->get();
+            //$countries = Country::orderBy('country_code', 'asc')->get();
+            return view('club.horses', compact('registeredHorses')); //, 'countries'));
         }
 
-        return redirect()->route('club.riders')->with('error', 'Club not found.');
+        return redirect()->route('club.horses')->with('error', 'Club not found.');
     }
 
-    public function deleteRider($rider_id)
+    public function deleteHorse($horse_id)
     {
-        $rider = Rider::find($rider_id);
+        $horse = Horse::find($horse_id);
 
-        if ($rider) {
-            $rider->delete();
-            return response()->json(['success' => 'Rider deleted successfully.'], 200);
+        if ($horse) {
+            $horse->delete();
+            return response()->json(['success' => 'Horse deleted successfully.'], 200);
         }
         
 
-        return response()->json(['error' => 'Rider not found.'], 404);
+        return response()->json(['error' => 'Horse not found.'], 404);
     }
+
+    // public function storeRider(Request $request)
+    // {
+    //     $user = Auth::user();
+    //     $club = Club::where('user_id', $user->id)->first();
+        
+    //     if (!$club) {
+    //         return redirect()->route('club.horses')->with('error', 'Club not found.');
+    //     }
+
+    //     $validatedData = $request->validate([
+    //         'rider_first_names' => 'required|string|max:255',
+    //         'rider_first_names_furigana' => 'required|string|max:255',
+    //         'rider_last_name' => 'required|string|max:255',
+    //         'rider_last_name_furigana' => 'required|string|max:255',
+    //         'rider_registration_number' => 'nullable|string|max:50',
+    //         'rider_international_registration_number' => 'nullable|string|max:50',
+    //         'rider_sex' => 'required|in:女子,男子',
+    //         'rider_date_of_birth' => 'required|date',
+    //         'country_id' => 'required|exists:countries,country_id',
+    //     ]);
+
+    //     $validatedData['club_id'] = $club->club_id;
+    //     $validatedData['is_approved_by_club'] = true;
+
+    //     Rider::create($validatedData);
+
+    //     return redirect()->route('club.riders')->with('success', 'Rider added successfully.');
+    // }
+    /////////////////////////////////////// 選手管理 //////////////////////////////////////////////////////////////
 
     public function approveRider($rider_id)
     {
@@ -158,32 +188,20 @@ class ClubController extends Controller
         return redirect()->route('club.riders')->with('success', 'Rider declined successfully.');
     }
 
-    public function storeRider(Request $request)
+    public function clubRiders()
     {
         $user = Auth::user();
         $club = Club::where('user_id', $user->id)->first();
         
-        if (!$club) {
-            return redirect()->route('club.riders')->with('error', 'Club not found.');
+        if ($club) {
+            $ridersForApproval = Rider::where('club_id', $club->club_id)->where('is_approved_by_club', 0)->get();
+            $registeredRiders = Rider::where('club_id', $club->club_id)->where('is_approved_by_club', 1)->get();
+            $countries = Country::orderBy('country_code', 'asc')->get();
+            return view('club.riders', compact('ridersForApproval', 'registeredRiders', 'countries'));
         }
 
-        $validatedData = $request->validate([
-            'rider_first_names' => 'required|string|max:255',
-            'rider_first_names_furigana' => 'required|string|max:255',
-            'rider_last_name' => 'required|string|max:255',
-            'rider_last_name_furigana' => 'required|string|max:255',
-            'rider_registration_number' => 'nullable|string|max:50',
-            'rider_international_registration_number' => 'nullable|string|max:50',
-            'rider_sex' => 'required|in:女子,男子',
-            'rider_date_of_birth' => 'required|date',
-            'country_id' => 'required|exists:countries,country_id',
-        ]);
-
-        $validatedData['club_id'] = $club->club_id;
-        $validatedData['is_approved_by_club'] = true;
-
-        Rider::create($validatedData);
-
-        return redirect()->route('club.riders')->with('success', 'Rider added successfully.');
+        return redirect()->route('club.riders')->with('error', 'Club not found.');
     }
+
+    
 }

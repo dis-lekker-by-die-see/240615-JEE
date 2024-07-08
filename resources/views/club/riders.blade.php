@@ -58,8 +58,8 @@
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">フリガナ</th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">登録番号</th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">性別</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">ユーザ有り</th>
-                                        <th class="px-6 py-3 text-right"></th>
+                                        {{-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">ユーザ有り</th> --}}
+                                        {{-- <th class="px-6 py-3 text-right"></th> --}}
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
@@ -70,22 +70,22 @@
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $rider->rider_last_name_furigana }} {{ $rider->rider_first_names_furigana }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $rider->rider_registration_number }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $rider->rider_sex }}</td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            {{-- <td class="px-6 py-4 whitespace-nowrap">
                                                 <span class="{{ $rider->user_id ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
                                                     {{ $rider->user_id ? '有り' : '無い' }}
                                                 </span>
-                                            </td>                                            
-                                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            </td>                                             --}}
+                                            {{-- <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                 <button class="text-red-600 dark:text-red-400 hover:text-red-900" onclick="confirmDeleteRider('{{ $rider->rider_id }}')">削除</button>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <button id="addRiderRow" class="addRowButton bg-blue-500 text-white px-4 py-2 rounded-md mt-4">追加</button>
 
+                    {{-- <button id="addRiderRow" class="addRowButton bg-blue-500 text-white px-4 py-2 rounded-md mt-4">追加</button>
                     <form method="POST" action="{{ route('club.storeRider') }}" class="space-y-4 mt-6 hidden" id="addRiderForm">
                         @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -156,7 +156,7 @@
                                 Save
                             </button>
                         </div>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
         </div>
@@ -230,27 +230,27 @@
             document.getElementById('addRiderForm').classList.remove('hidden');
         });
 
-        function confirmDeleteRider(riderId) {
-            if (confirm('Are you sure you want to delete this rider?')) {
-                deleteRider(riderId);
-            }
-        }
+        // function confirmDeleteRider(riderId) {
+        //     if (confirm('Are you sure you want to delete this rider?')) {
+        //         deleteRider(riderId);
+        //     }
+        // }
 
-        function deleteRider(riderId) {
-            fetch(`/club/riders/${riderId}`, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Content-Type': 'application/json'
-                },
-            }).then(response => {
-                if (response.ok) {
-                    location.reload(); // Reload the page or update the DOM as necessary
-                } else {
-                    alert('Failed to delete rider.');
-                }
-            });
-        }
+        // function deleteRider(riderId) {
+        //     fetch(`/club/riders/${riderId}`, {
+        //         method: 'DELETE',
+        //         headers: {
+        //             'X-CSRF-TOKEN': '{{ csrf_token() }}',
+        //             'Content-Type': 'application/json'
+        //         },
+        //     }).then(response => {
+        //         if (response.ok) {
+        //             location.reload(); // Reload the page or update the DOM as necessary
+        //         } else {
+        //             alert('Failed to delete rider.');
+        //         }
+        //     });
+        // }
     </script>
     
 </x-app-layout>

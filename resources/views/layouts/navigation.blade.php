@@ -226,6 +226,13 @@
                     @endif
                     @if (Auth::user()->role->role_name === 'club')
                         <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <x-nav-link :href="route('club.horses')" :active="request()->routeIs('club.horses')">
+                                {{ __('馬管理') }}
+                            </x-nav-link>
+                        </div>
+                    @endif
+                    @if (Auth::user()->role->role_name === 'club')
+                        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                             <x-nav-link :href="route('club.riders')" :active="request()->routeIs('club.riders')">
                                 {{ __('選手管理') }}
                             </x-nav-link>
@@ -315,6 +322,11 @@
                 @if (Auth::user()->role->role_name === 'club')
                     <x-responsive-nav-link :href="route('club.details')" :active="request()->routeIs('club.details')">
                         {{ __('Club Details') }}
+                    </x-responsive-nav-link>
+                @endif
+                @if (Auth::user()->role->role_name === 'club')
+                    <x-responsive-nav-link :href="route('club.horses')" :active="request()->routeIs('club.horses')">
+                        {{ __('馬管理') }}
                     </x-responsive-nav-link>
                 @endif
                 @if (Auth::user()->role->role_name === 'club')
